@@ -1,35 +1,40 @@
 package com.github.silviuburceadev.aoc;
 
 public class LetterCalibration extends Calibration {
+    private static final String[] DIGITS = {
+        "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"
+    };
 
-    /**
-     * Digit replacements for their letter counterpart. Note that the digits are not in their natural order, to
-     * preserve the left-to-right parsing.
-     * - 8 precedes 2 and 3, so <code>eightwo</code> becomes <code>8wo</code>, not <code>eigh2</code>
-     * - 1, 5 and 9 must precede 8, so <code>fiveight</code> becomes <code>5ight</code>
-     * - 7 must precede 9, so <code>sevenine</code> becomes <code>7ine</code>
-     * - 2 must precede 1, so <code>twone</code> becomes <code>2ne</code>
-     */
-    enum Digit {
-        ONE("1"), FOUR("4"), FIVE("5"), SIX("6"), SEVEN("7"), NINE("9"), EIGHT("8"), TWO("2"), THREE("3");
-
-        public final String value;
-
-        Digit(String value) {
-            this.value = value;
+    private String filter(final String input) {
+        int i = 0;
+        final StringBuilder sb = new StringBuilder(input);
+        while(i < sb.length()) {
+            // ignore checking actual digits
+            if (Character.isDigit(sb.charAt(i))) {
+                i++;
+                continue;
+            }
+            // if current char does not start with lead character for one, two, three, etc., delete it
+            if ("otfsen".indexOf(sb.charAt(i)) == -1) {
+                sb.deleteCharAt(i);
+                continue;
+            }
+            // current char might be the start of one, two, three, etc., let's check and maybe replace
+            for (int j = 1; j <= DIGITS.length; j++) {
+                final String digit = DIGITS[j - 1];
+                if (sb.indexOf(digit, i) == i) {
+                    // if a digit is found, replace it
+                    sb.replace(i, i + digit.length(), "" + j);
+                    break;
+                }
+            }
+            i++;
         }
+        return sb.toString();
     }
 
     @Override
     public int parse(String input) {
-        final String filtered = filter(input);
-        return super.parse(filtered);
-    }
-
-    private String filter(String input) {
-        for (Digit digit : Digit.values()) {
-            input = input.replace(digit.name().toLowerCase(), digit.value);
-        }
-        return input;
+        return super.parse(filter(input));
     }
 }
