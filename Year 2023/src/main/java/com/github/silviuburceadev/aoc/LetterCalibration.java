@@ -23,8 +23,10 @@ public class LetterCalibration extends Calibration {
             for (int j = 1; j <= DIGITS.length; j++) {
                 final String digit = DIGITS[j - 1];
                 if (sb.indexOf(digit, i) == i) {
-                    // if a digit is found, replace it
-                    sb.replace(i, i + digit.length(), "" + j);
+                    // if a digit is found, replace it ... however ... for a situation like eightwo,
+                    // the expected answer is 82, so we need to keep the last char of the digit,
+                    // going eightwo -> 8two -> 82o
+                    sb.replace(i, i + digit.length() - 1, "" + j);
                     break;
                 }
             }
