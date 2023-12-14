@@ -25,6 +25,22 @@ public class TestGameCube {
     }
 
     @Test
+    public void testMultiLinesOfSampleInput() throws IOException {
+        try (InputStream resource = TestGameCube.class.getResourceAsStream("day2.sample.in")) {
+            assert resource != null;
+            try (InputStreamReader inputStreamReader = new InputStreamReader(resource, StandardCharsets.UTF_8);
+                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
+                long count = bufferedReader.lines()
+                        .map(GameCube::parse)
+                        .filter(g -> g.isValid(12, 13, 14))
+                        .mapToInt(GameCube::id)
+                        .sum();
+                assertEquals(8, count);
+            }
+        }
+    }
+
+    @Test
     public void testMultiLinesOfMainInput() throws IOException {
         try (InputStream resource = TestGameCube.class.getResourceAsStream("day2.in")) {
             assert resource != null;
@@ -33,8 +49,9 @@ public class TestGameCube {
                 long count = bufferedReader.lines()
                         .map(GameCube::parse)
                         .filter(g -> g.isValid(12, 13, 14))
-                        .count();
-                assertEquals(0, count);
+                        .mapToInt(GameCube::id)
+                        .sum();
+                assertEquals(2810, count);
             }
         }
     }

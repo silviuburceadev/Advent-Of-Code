@@ -14,6 +14,7 @@ public record GameCube(int id, List<GameCubeSet> sets) {
     }
 
     public boolean isValid(int red, int green, int blue) {
-        return true;
+        return sets.stream()
+                .noneMatch(set -> red < set.red() || green < set.green() || blue < set.blue());
     }
 }
