@@ -3,7 +3,12 @@ package com.github.silviuburceadev.aoc.test;
 import com.github.silviuburceadev.aoc.Calibration;
 import org.junit.jupiter.api.Test;
 
-import java.util.stream.Stream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -32,8 +37,18 @@ public class TestCalibration {
     }
 
     @Test
-    public void testMultiLinesOfMainInput() {
+    public void testMultiLinesOfSample() {
         assertEquals(142, INSTANCE.calibrate(
-            Stream.of("1abc2", "pqr3stu8vwx", "a1b2c3d4e5f", "treb7uchet")));
+            List.of("1abc2", "pqr3stu8vwx", "a1b2c3d4e5f", "treb7uchet")));
+    }
+
+    @Test
+    public void testMultiLinesOfMainInput() throws IOException {
+        try (InputStream resource = TestCalibration.class.getResourceAsStream("day1.in");
+             InputStreamReader inputStreamReader = new InputStreamReader(resource, StandardCharsets.UTF_8);
+             BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
+            List<String> lines = bufferedReader.lines().toList();
+            assertEquals(55971, INSTANCE.calibrate(lines));
+        }
     }
 }

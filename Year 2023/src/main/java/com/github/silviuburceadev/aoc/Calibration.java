@@ -1,6 +1,6 @@
 package com.github.silviuburceadev.aoc;
 
-import java.util.stream.Stream;
+import java.util.List;
 
 import static java.lang.Character.digit;
 
@@ -22,7 +22,7 @@ public class Calibration {
         return sb.toString();
     }
 
-    public int calibrate(Stream<String> lines) {
-        return lines.mapToInt(this::parse).sum();
+    public int calibrate(List<String> lines) {
+        return lines.stream().mapToInt(this::parse).sum();
     }
 }
