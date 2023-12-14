@@ -9,6 +9,6 @@ public class LetterCalibration extends Calibration {
     }
 
     private String filter(final String input) {
-        return input;
+        return input.replace("two", "2").replace("nine", "9");
     }
 }
