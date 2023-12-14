@@ -12,4 +12,8 @@ public record GameCube(int id, List<GameCubeSet> sets) {
         final List<GameCubeSet> sets = stream(parts[1].split("; ")).map(GameCubeSet::parse).toList();
         return new GameCube(id, sets);
     }
+
+    public boolean isValid(int red, int green, int blue) {
+        return true;
+    }
 }
