@@ -23,6 +23,6 @@ public class Calibration {
     }
 
     public int calibrate(Stream<String> lines) {
-        return 0;
+        return lines.mapToInt(this::parse).sum();
     }
 }
