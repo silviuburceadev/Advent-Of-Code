@@ -6,4 +6,5 @@ module year_2023_main_test {
 
     // app
     exports com.github.silviuburceadev.aoc.test;
+    exports com.github.silviuburceadev.aoc.test.gamecube;
 }
