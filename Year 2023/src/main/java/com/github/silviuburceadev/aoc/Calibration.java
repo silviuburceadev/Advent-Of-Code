@@ -1,6 +1,9 @@
 package com.github.silviuburceadev.aoc;
 
+import java.util.Arrays;
+import java.util.function.Supplier;
 import java.util.stream.Collector;
+import java.util.stream.Stream;
 
 import static java.lang.Character.digit;
 
@@ -12,13 +15,13 @@ public class Calibration {
     }
 
     private String filter(String input) {
-        return input.chars().filter(Character::isDigit).mapToObj(c -> (char) c).collect(
-            Collector.of(
-                StringBuilder::new,
-                StringBuilder::append,
-                StringBuilder::append,
-                StringBuilder::toString
-            )
-        );
+        // 2 digits are expected
+        final StringBuilder sb = new StringBuilder(2);
+        for (char c : input.toCharArray()) {
+            if (Character.isDigit(c)) {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
     }
 }
