@@ -3,6 +3,8 @@ package com.github.silviuburceadev.aoc.test;
 import com.github.silviuburceadev.aoc.Calibration;
 import org.junit.jupiter.api.Test;
 
+import java.util.stream.Stream;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestCalibration {
@@ -27,5 +29,11 @@ public class TestCalibration {
     @Test
     public void testParseOneDigit() {
         assertEquals(77, INSTANCE.parse("treb7uchet"));
+    }
+
+    @Test
+    public void testMultiLinesOfMainInput() {
+        assertEquals(142, INSTANCE.calibrate(
+            Stream.of("1abc2", "pqr3stu8vwx", "a1b2c3d4e5f", "treb7uchet")));
     }
 }

@@ -1,5 +1,7 @@
 package com.github.silviuburceadev.aoc;
 
+import java.util.stream.Stream;
+
 import static java.lang.Character.digit;
 
 public class Calibration {
@@ -18,5 +20,9 @@ public class Calibration {
             }
         }
         return sb.toString();
+    }
+
+    public int calibrate(Stream<String> lines) {
+        return 0;
     }
 }
