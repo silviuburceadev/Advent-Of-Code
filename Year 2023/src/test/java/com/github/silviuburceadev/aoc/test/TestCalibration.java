@@ -44,11 +44,13 @@ public class TestCalibration {
 
     @Test
     public void testMultiLinesOfMainInput() throws IOException {
-        try (InputStream resource = TestCalibration.class.getResourceAsStream("day1.in");
-             InputStreamReader inputStreamReader = new InputStreamReader(resource, StandardCharsets.UTF_8);
-             BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
-            List<String> lines = bufferedReader.lines().toList();
-            assertEquals(55971, INSTANCE.calibrate(lines));
+        try (InputStream resource = TestCalibration.class.getResourceAsStream("day1.in")) {
+            assert resource != null;
+            try (InputStreamReader inputStreamReader = new InputStreamReader(resource, StandardCharsets.UTF_8);
+                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
+                List<String> lines = bufferedReader.lines().toList();
+                assertEquals(55971, INSTANCE.calibrate(lines));
+            }
         }
     }
 }
