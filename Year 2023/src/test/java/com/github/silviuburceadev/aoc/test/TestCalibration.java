@@ -14,7 +14,7 @@ public class TestCalibration {
     public void testParseLeadTailDigit() {
         assertEquals(12, INSTANCE.parse("1abc2"));
     }
-    
+
     @Test
     public void testParseTwoDigitsInside() {
         assertEquals(38, INSTANCE.parse("pqr3stu8vwx"));
