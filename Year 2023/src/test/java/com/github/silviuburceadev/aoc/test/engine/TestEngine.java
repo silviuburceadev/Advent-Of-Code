@@ -3,7 +3,7 @@ package com.github.silviuburceadev.aoc.test.engine;
 import com.github.silviuburceadev.aoc.engine.Engine;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestEngine {
 
@@ -23,6 +23,8 @@ public class TestEngine {
 
     @Test
     public void testParseEngine() {
-        assertNotNull(Engine.parse(SAMPLE));
+        Engine engine = Engine.parse(SAMPLE);
+        assertEquals(6, engine.cogs().size());
+        assertEquals(10, engine.parts().size());
     }
 }
