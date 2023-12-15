@@ -1,5 +1,6 @@
 package com.github.silviuburceadev.aoc.test.engine;
 
+import com.github.silviuburceadev.aoc.engine.Cog;
 import com.github.silviuburceadev.aoc.engine.Engine;
 import org.junit.jupiter.api.Test;
 
@@ -23,8 +24,16 @@ public class TestEngine {
 
     @Test
     public void testParseEngine() {
-        Engine engine = Engine.parse(SAMPLE);
+        final Engine engine = Engine.parse(SAMPLE);
         assertEquals(6, engine.cogs().size());
         assertEquals(10, engine.parts().size());
+    }
+
+    @Test
+    public void testCogTotal() {
+        final Engine engine = Engine.parse(SAMPLE);
+        // get the star
+        final Cog cog = engine.cogs().get(0);
+        assertEquals(502, engine.getCogTotal(cog));
     }
 }

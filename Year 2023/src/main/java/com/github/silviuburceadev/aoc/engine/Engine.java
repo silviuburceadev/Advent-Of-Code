@@ -40,4 +40,8 @@ public record Engine(List<Cog> cogs, List<PartNumber> parts) {
 
         return new Engine(cogs, parts);
     }
+
+    public int getCogTotal(Cog cog) {
+        return 0;
+    }
 }
