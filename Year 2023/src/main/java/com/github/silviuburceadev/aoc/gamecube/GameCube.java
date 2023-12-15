@@ -2,6 +2,7 @@ package com.github.silviuburceadev.aoc.gamecube;
 
 import java.util.List;
 
+import static java.lang.Math.max;
 import static java.util.Arrays.stream;
 
 public record GameCube(int id, List<GameCubeSet> sets) {
@@ -19,6 +20,14 @@ public record GameCube(int id, List<GameCubeSet> sets) {
     }
 
     public GameCubeSet getMinimumToPlay() {
-        return null;
+        int red = 0;
+        int green = 0;
+        int blue = 0;
+        for (GameCubeSet set : sets) {
+            red = max(red, set.red());
+            green = max(green, set.green());
+            blue = max(blue, set.blue());
+        }
+        return new GameCubeSet(red, green, blue);
     }
 }
