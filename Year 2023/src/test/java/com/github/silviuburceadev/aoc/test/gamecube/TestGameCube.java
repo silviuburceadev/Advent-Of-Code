@@ -68,4 +68,20 @@ public class TestGameCube {
         final GameCubeSet set = new GameCubeSet(4, 2, 6);
         assertEquals(48, set.getPower());
     }
+
+    @Test
+    public void testMultipleGameSetPower() throws IOException {
+        try (InputStream resource = TestGameCube.class.getResourceAsStream("day2.in")) {
+            assert resource != null;
+            try (InputStreamReader inputStreamReader = new InputStreamReader(resource, StandardCharsets.UTF_8);
+                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
+                long count = bufferedReader.lines()
+                        .map(GameCube::parse)
+                        .map(GameCube::getMinimumToPlay)
+                        .mapToInt(GameCubeSet::getPower)
+                        .sum();
+                assertEquals(69110, count);
+            }
+        }
+    }
 }
