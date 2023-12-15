@@ -29,6 +29,6 @@ public record GameCubeSet(int red, int green, int blue) {
     }
 
     public int getPower() {
-        return 0;
+        return red * green * blue;
     }
 }
