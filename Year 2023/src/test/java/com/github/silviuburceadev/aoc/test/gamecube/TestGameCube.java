@@ -62,4 +62,10 @@ public class TestGameCube {
         final GameCubeSet minToPlay = new GameCubeSet(4, 2, 6);
         assertEquals(minToPlay, gameCube.getMinimumToPlay());
     }
+
+    @Test
+    public void testGameSetPower() {
+        final GameCubeSet set = new GameCubeSet(4, 2, 6);
+        assertEquals(48, set.getPower());
+    }
 }
