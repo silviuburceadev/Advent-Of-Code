@@ -36,4 +36,10 @@ public class TestEngine {
         final Cog cog = engine.cogs().get(0);
         assertEquals(502, engine.getCogTotal(cog));
     }
+
+    @Test
+    public void testEngineTotal() {
+        final Engine engine = Engine.parse(SAMPLE);
+        assertEquals(4361, engine.getTotal());
+    }
 }

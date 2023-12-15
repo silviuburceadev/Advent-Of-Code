@@ -50,4 +50,9 @@ public record Engine(List<Cog> cogs, List<PartNumber> parts) {
                 .mapToInt(PartNumber::value)
                 .sum();
     }
+
+
+    public int getTotal() {
+        return 0;
+    }
 }
