@@ -42,6 +42,12 @@ public record Engine(List<Cog> cogs, List<PartNumber> parts) {
     }
 
     public int getCogTotal(Cog cog) {
-        return 0;
+        return parts.stream()
+                // get the parts on the row before, current and row after the cog
+                .filter(p -> Math.abs(p.start().row() - cog.coords().row()) <= 1)
+                // and is between start - 1 and end + 1 columns (+1/-1 to account for diagonal)
+                .filter(p -> p.start().column() - 1 <= cog.coords().column() && cog.coords().column() <= p.end().column() + 1)
+                .mapToInt(PartNumber::value)
+                .sum();
     }
 }
