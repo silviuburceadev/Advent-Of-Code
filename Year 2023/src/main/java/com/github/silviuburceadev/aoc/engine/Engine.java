@@ -2,6 +2,7 @@ package com.github.silviuburceadev.aoc.engine;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public record Engine(List<Cog> cogs, List<PartNumber> parts) {
 
@@ -42,17 +43,22 @@ public record Engine(List<Cog> cogs, List<PartNumber> parts) {
     }
 
     public int getCogTotal(Cog cog) {
+        return getAdjacentParts(cog).mapToInt(PartNumber::value).sum();
+    }
+
+    public int getTotal() {
+        return cogs.stream()
+                .flatMap(this::getAdjacentParts)
+                // do not count part numbers multiple times if they are near 2+ cogs
+                .distinct()
+                .mapToInt(PartNumber::value).sum();
+    }
+
+    private Stream<PartNumber> getAdjacentParts(Cog cog) {
         return parts.stream()
                 // get the parts on the row before, current and row after the cog
                 .filter(p -> Math.abs(p.start().row() - cog.coords().row()) <= 1)
                 // and is between start - 1 and end + 1 columns (+1/-1 to account for diagonal)
-                .filter(p -> p.start().column() - 1 <= cog.coords().column() && cog.coords().column() <= p.end().column() + 1)
-                .mapToInt(PartNumber::value)
-                .sum();
-    }
-
-
-    public int getTotal() {
-        return 0;
+                .filter(p -> p.start().column() - 1 <= cog.coords().column() && cog.coords().column() <= p.end().column() + 1);
     }
 }
