@@ -17,4 +17,8 @@ public record GameCube(int id, List<GameCubeSet> sets) {
         return sets.stream()
                 .noneMatch(set -> red < set.red() || green < set.green() || blue < set.blue());
     }
+
+    public GameCubeSet getMinimumToPlay() {
+        return null;
+    }
 }
