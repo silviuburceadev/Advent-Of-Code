@@ -57,7 +57,7 @@ public class TestEngine {
                  BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
                 final String[] lines = bufferedReader.lines().toArray(String[]::new);
                 final Engine engine = Engine.parse(lines);
-                assertEquals(0, engine.getTotal());
+                assertEquals(531561, engine.getTotal());
             }
         }
     }

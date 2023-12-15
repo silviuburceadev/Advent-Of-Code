@@ -26,10 +26,15 @@ public record Engine(List<Cog> cogs, List<PartNumber> parts) {
                         start = new Coords(i, j);
                     }
                     value = value * 10 + (cell - '0');
+                    if (j == chars.length - 1) {
+                        // end of the row, save the number
+                        final Coords end = new Coords(i, j);
+                        parts.add(new PartNumber(value, start, end));
+                    }
                 } else {
                     if (value != 0) {
-                        // we were parsing a number, need to save it
-                        final Coords end = new Coords(i, j);
+                        // we were parsing a number, it ended with the previous char, need to save it
+                        final Coords end = new Coords(i, j - 1);
                         parts.add(new PartNumber(value, start, end));
                         value = 0;
                     }
