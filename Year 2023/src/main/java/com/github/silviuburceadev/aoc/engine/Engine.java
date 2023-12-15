@@ -7,8 +7,10 @@ import java.util.stream.Stream;
 public record Engine(List<Cog> cogs, List<PartNumber> parts) {
 
     public static Engine parse(String input) {
-        final String[] rows = input.split("\\r?\\n");
+        return parse(input.split("\\r?\\n"));
+    }
 
+    public static Engine parse(String[] rows) {
         final List<Cog> cogs = new ArrayList<>();
         final List<PartNumber> parts = new ArrayList<>();
 

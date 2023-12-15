@@ -4,6 +4,12 @@ import com.github.silviuburceadev.aoc.engine.Cog;
 import com.github.silviuburceadev.aoc.engine.Engine;
 import org.junit.jupiter.api.Test;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestEngine {
@@ -38,8 +44,21 @@ public class TestEngine {
     }
 
     @Test
-    public void testEngineTotal() {
+    public void testSampleEngineTotal() {
         final Engine engine = Engine.parse(SAMPLE);
         assertEquals(4361, engine.getTotal());
+    }
+
+    @Test
+    public void testMainEngineTotal() throws IOException {
+        try (InputStream resource = TestEngine.class.getResourceAsStream("day3.in")) {
+            assert resource != null;
+            try (InputStreamReader inputStreamReader = new InputStreamReader(resource, StandardCharsets.UTF_8);
+                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
+                final String[] lines = bufferedReader.lines().toArray(String[]::new);
+                final Engine engine = Engine.parse(lines);
+                assertEquals(0, engine.getTotal());
+            }
+        }
     }
 }
