@@ -72,4 +72,17 @@ public class TestEngine {
         assertEquals(0, engine.getCogRatio(engine.cogs().get(0)));
         assertEquals(97047, engine.getCogRatio(engine.cogs().get(1)));
     }
+
+    @Test
+    public void testRatioMainInput() throws IOException {
+        try (InputStream resource = TestEngine.class.getResourceAsStream("day3.in")) {
+            assert resource != null;
+            try (InputStreamReader inputStreamReader = new InputStreamReader(resource, StandardCharsets.UTF_8);
+                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
+                final String[] lines = bufferedReader.lines().toArray(String[]::new);
+                final Engine engine = Engine.parse(lines);
+                assertEquals(-1, engine.getTotalRatio());
+            }
+        }
+    }
 }

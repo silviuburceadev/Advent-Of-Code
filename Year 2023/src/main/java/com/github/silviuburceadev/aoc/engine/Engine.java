@@ -61,16 +61,20 @@ public record Engine(List<Cog> cogs, List<PartNumber> parts) {
                 .mapToInt(PartNumber::value).sum();
     }
 
+    public int getCogRatio(Cog cog) {
+        List<PartNumber> parts = getAdjacentParts(cog).toList();
+        return parts.size() == 2 ? parts.get(0).value() * parts.get(1).value() : 0;
+    }
+
+    public int getTotalRatio() {
+        return 0;
+    }
+
     private Stream<PartNumber> getAdjacentParts(Cog cog) {
         return parts.stream()
                 // get the parts on the row before, current and row after the cog
                 .filter(p -> Math.abs(p.start().row() - cog.coords().row()) <= 1)
                 // and is between start - 1 and end + 1 columns (+1/-1 to account for diagonal)
                 .filter(p -> p.start().column() - 1 <= cog.coords().column() && cog.coords().column() <= p.end().column() + 1);
-    }
-
-    public int getCogRatio(Cog cog) {
-        List<PartNumber> parts = getAdjacentParts(cog).toList();
-        return parts.size() == 2 ? parts.get(0).value() * parts.get(1).value() : 0;
     }
 }
