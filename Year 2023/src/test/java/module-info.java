@@ -8,4 +8,5 @@ module year_2023_main_test {
     exports com.github.silviuburceadev.aoc.test.engine;
     exports com.github.silviuburceadev.aoc.test.gamecube;
     exports com.github.silviuburceadev.aoc.test.calibration;
+    exports com.github.silviuburceadev.aoc.test.scratchcard;
 }
