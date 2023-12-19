@@ -61,4 +61,14 @@ public class TestEngine {
             }
         }
     }
+
+    @Test
+    public void testRatio() {
+        final Engine engine = Engine.parse("""
+            123...*456
+            *789......
+            """);
+        assertEquals(2, engine.cogs().size());
+        assertEquals(912, engine.getCogRatio(engine.cogs().get(0)));
+    }
 }

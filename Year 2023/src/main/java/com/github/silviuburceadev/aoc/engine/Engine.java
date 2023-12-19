@@ -68,4 +68,8 @@ public record Engine(List<Cog> cogs, List<PartNumber> parts) {
                 // and is between start - 1 and end + 1 columns (+1/-1 to account for diagonal)
                 .filter(p -> p.start().column() - 1 <= cog.coords().column() && cog.coords().column() <= p.end().column() + 1);
     }
+
+    public int getCogRatio(Cog cog) {
+        return 0;
+    }
 }
