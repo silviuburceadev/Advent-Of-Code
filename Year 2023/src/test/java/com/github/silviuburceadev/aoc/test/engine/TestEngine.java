@@ -69,6 +69,7 @@ public class TestEngine {
             *789......
             """);
         assertEquals(2, engine.cogs().size());
-        assertEquals(912, engine.getCogRatio(engine.cogs().get(0)));
+        assertEquals(0, engine.getCogRatio(engine.cogs().get(0)));
+        assertEquals(97047, engine.getCogRatio(engine.cogs().get(1)));
     }
 }

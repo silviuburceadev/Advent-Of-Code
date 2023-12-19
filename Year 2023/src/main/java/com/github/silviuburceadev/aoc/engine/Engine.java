@@ -70,6 +70,7 @@ public record Engine(List<Cog> cogs, List<PartNumber> parts) {
     }
 
     public int getCogRatio(Cog cog) {
-        return 0;
+        List<PartNumber> parts = getAdjacentParts(cog).toList();
+        return parts.size() == 2 ? parts.get(0).value() * parts.get(1).value() : 0;
     }
 }
