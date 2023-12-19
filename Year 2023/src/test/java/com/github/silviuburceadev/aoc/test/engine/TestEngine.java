@@ -81,7 +81,7 @@ public class TestEngine {
                  BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
                 final String[] lines = bufferedReader.lines().toArray(String[]::new);
                 final Engine engine = Engine.parse(lines);
-                assertEquals(-1, engine.getTotalRatio());
+                assertEquals(83279367, engine.getTotalRatio());
             }
         }
     }

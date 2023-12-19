@@ -67,7 +67,9 @@ public record Engine(List<Cog> cogs, List<PartNumber> parts) {
     }
 
     public int getTotalRatio() {
-        return 0;
+        return cogs.stream()
+                .mapToInt(this::getCogRatio)
+                .sum();
     }
 
     private Stream<PartNumber> getAdjacentParts(Cog cog) {
