@@ -1,4 +1,4 @@
-package com.github.silviuburceadev.aoc;
+package com.github.silviuburceadev.aoc.calibration;
 
 import java.util.List;
 

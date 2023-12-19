@@ -3,7 +3,7 @@ module year_2023_main {
     requires java.logging;
 
     // app
-    exports com.github.silviuburceadev.aoc;
-    exports com.github.silviuburceadev.aoc.gamecube;
+    exports com.github.silviuburceadev.aoc.calibration;
     exports com.github.silviuburceadev.aoc.engine;
+    exports com.github.silviuburceadev.aoc.gamecube;
 }
