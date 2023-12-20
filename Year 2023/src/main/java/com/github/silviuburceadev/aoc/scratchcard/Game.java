@@ -19,4 +19,8 @@ public record Game(Card winningCard, Card playingCard) {
         int numbersInCommon = copy.size();
         return numbersInCommon == 0 ? 0 : 1 << (numbersInCommon - 1);
     }
+
+    public int getMatches() {
+        return 0;
+    }
 }
