@@ -1,5 +1,8 @@
 package com.github.silviuburceadev.aoc.scratchcard;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static java.util.Arrays.stream;
 
 public record Game(Card winningCard, Card playingCard) {
@@ -11,6 +14,9 @@ public record Game(Card winningCard, Card playingCard) {
     }
 
     public int getPoints() {
-        return 0;
+        final List<Integer> copy = new ArrayList<>(winningCard.numbers());
+        copy.retainAll(playingCard.numbers());
+        int numbersInCommon = copy.size();
+        return numbersInCommon == 0 ? 0 : 1 << (numbersInCommon - 1);
     }
 }
