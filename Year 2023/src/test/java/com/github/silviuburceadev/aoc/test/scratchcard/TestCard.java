@@ -3,6 +3,12 @@ package com.github.silviuburceadev.aoc.test.scratchcard;
 import com.github.silviuburceadev.aoc.scratchcard.Game;
 import org.junit.jupiter.api.Test;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -25,5 +31,21 @@ public class TestCard {
         assertEquals(2, game2.getPoints());
         final Game game3 = Game.parse("Card 5: 87 83 26 28 32 | 88 30 70 12 93 22 82 36");
         assertEquals(0, game3.getPoints());
+    }
+
+    @Test
+    public void testPointsMainInput() throws IOException {
+        try (InputStream resource = TestCard.class.getResourceAsStream("day4.in")) {
+            assert resource != null;
+            try (InputStreamReader inputStreamReader = new InputStreamReader(resource, StandardCharsets.UTF_8);
+                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
+                int sum = bufferedReader.lines()
+                        .map(Game::parse)
+                        .mapToInt(Game::getPoints)
+                        .sum();
+                assertEquals(18653, sum);
+
+            }
+        }
     }
 }
