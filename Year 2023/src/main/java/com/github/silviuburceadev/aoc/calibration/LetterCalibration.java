@@ -1,4 +1,4 @@
-package com.github.silviuburceadev.aoc;
+package com.github.silviuburceadev.aoc.calibration;
 
 public class LetterCalibration extends Calibration {
     private static final String[] DIGITS = {

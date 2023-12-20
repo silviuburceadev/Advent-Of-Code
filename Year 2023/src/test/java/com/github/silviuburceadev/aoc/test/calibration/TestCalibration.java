@@ -1,6 +1,6 @@
-package com.github.silviuburceadev.aoc.test;
+package com.github.silviuburceadev.aoc.test.calibration;
 
-import com.github.silviuburceadev.aoc.Calibration;
+import com.github.silviuburceadev.aoc.calibration.Calibration;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;
