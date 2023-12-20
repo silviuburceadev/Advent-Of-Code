@@ -14,13 +14,13 @@ public record Game(Card winningCard, Card playingCard) {
     }
 
     public int getPoints() {
-        final List<Integer> copy = new ArrayList<>(winningCard.numbers());
-        copy.retainAll(playingCard.numbers());
-        int numbersInCommon = copy.size();
-        return numbersInCommon == 0 ? 0 : 1 << (numbersInCommon - 1);
+        final int matches = getMatches();
+        return matches == 0 ? 0 : 1 << (matches - 1);
     }
 
     public int getMatches() {
-        return 0;
+        final List<Integer> copy = new ArrayList<>(winningCard.numbers());
+        copy.retainAll(playingCard.numbers());
+        return copy.size();
     }
 }
