@@ -9,4 +9,8 @@ public record Game(Card winningCard, Card playingCard) {
         final Card playingCard = new Card(stream(cards[1].trim().split("\\D+")).map(Integer::valueOf).toList());
         return new Game(winningCard, playingCard);
     }
+
+    public int getPoints() {
+        return 0;
+    }
 }

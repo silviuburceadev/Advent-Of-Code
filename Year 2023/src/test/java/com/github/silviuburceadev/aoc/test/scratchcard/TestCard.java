@@ -16,4 +16,10 @@ public class TestCard {
         assertNotNull(game.playingCard());
         assertEquals(8, game.playingCard().numbers().size());
     }
+
+    @Test
+    public void testPoints() {
+        final Game game = Game.parse("Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53");
+        assertEquals(8, game.getPoints());
+    }
 }
