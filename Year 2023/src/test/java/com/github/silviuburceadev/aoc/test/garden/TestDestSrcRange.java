@@ -18,8 +18,8 @@ public class TestDestSrcRange {
     @Test
     public void testMap() {
         DestSrcRange range = new DestSrcRange(52, 50, 48);
-        assertEquals(81, range.map(79));
-        assertEquals(14, range.map(14));
-        assertEquals(57, range.map(55));
+        assertEquals(81, range.apply(79));
+        assertEquals(14, range.apply(14));
+        assertEquals(57, range.apply(55));
     }
 }
