@@ -11,7 +11,8 @@ public record DestSrcRange(int destination, int source, int range) {
         this(parseInt(input[0]), parseInt(input[1]), parseInt(input[2]));
     }
 
-    public int map(int i) {
-        return 0;
+    public int map(int seed) {
+        if (seed < source || seed >= source + range) return seed;
+        return seed + (destination - source);
     }
 }
