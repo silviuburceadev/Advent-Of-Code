@@ -46,11 +46,21 @@ public class TestGarden {
 
     @Test
     public void testParseGarden() {
-        Garden garden = Garden.parse(SAMPLE);
+        final Garden garden = Garden.parse(SAMPLE);
         assertEquals(4, garden.getSeeds().size());
         assertEquals(7, garden.sections().size());
-        SectionRange section = garden.sections().get(0);
+
+        final SectionRange section = garden.sections().get(0);
         assertEquals("seed-to-soil", section.name());
         assertEquals(2, section.ranges().size());
+    }
+
+    @Test
+    public void testApplyGarden() {
+        final Garden garden = Garden.parse(SAMPLE);
+        assertEquals(82L, garden.apply(79L));
+        assertEquals(43L, garden.apply(14L));
+        assertEquals(86L, garden.apply(55L));
+        assertEquals(35L, garden.apply(13L));
     }
 }

@@ -37,4 +37,8 @@ public record Garden(List<Long> seeds, List<SectionRange> sections) {
     public List<Long> getSeeds() {
         return seeds;
     }
+
+    public long apply(long seed) {
+        return 0;
+    }
 }
