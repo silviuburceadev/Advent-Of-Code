@@ -5,7 +5,7 @@ import java.util.List;
 
 import static java.util.Arrays.stream;
 
-public record Garden(List<Integer> seeds, List<SectionRange> sections) {
+public record Garden(List<Long> seeds, List<SectionRange> sections) {
     public static Garden parse(String[] input) {
         final String seeds = input[0].substring("seeds: ".length());
         String name = null;
@@ -29,12 +29,12 @@ public record Garden(List<Integer> seeds, List<SectionRange> sections) {
         sections.add(new SectionRange(name, ranges));
 
         return new Garden(
-            stream(seeds.split("\\D+")).map(Integer::valueOf).toList(),
+            stream(seeds.split("\\D+")).map(Long::valueOf).toList(),
             sections
         );
     }
 
-    public List<Integer> getSeeds() {
+    public List<Long> getSeeds() {
         return seeds;
     }
 }

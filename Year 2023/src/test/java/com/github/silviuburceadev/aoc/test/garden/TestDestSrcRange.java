@@ -21,5 +21,6 @@ public class TestDestSrcRange {
         assertEquals(81, range.apply(79));
         assertEquals(14, range.apply(14));
         assertEquals(57, range.apply(55));
+        assertEquals(100, range.apply(100));
     }
 }
