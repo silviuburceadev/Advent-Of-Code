@@ -17,10 +17,10 @@ public class TestDestSrcRange {
 
     @Test
     public void testMap() {
-        DestSrcRange range = new DestSrcRange(52, 50, 48);
-        assertEquals(81, range.apply(79));
-        assertEquals(14, range.apply(14));
-        assertEquals(57, range.apply(55));
-        assertEquals(100, range.apply(100));
+        DestSrcRange range = new DestSrcRange(52L, 50L, 48L);
+        assertEquals(81L, range.apply(79L));
+        assertEquals(14L, range.apply(14L));
+        assertEquals(57L, range.apply(55L));
+        assertEquals(100L, range.apply(100L));
     }
 }
