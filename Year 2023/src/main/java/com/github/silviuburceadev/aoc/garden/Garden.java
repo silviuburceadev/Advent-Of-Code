@@ -39,6 +39,9 @@ public record Garden(List<Long> seeds, List<SectionRange> sections) {
     }
 
     public long apply(long seed) {
-        return 0;
+        for (SectionRange section : sections) {
+            seed = section.apply(seed);
+        }
+        return seed;
     }
 }
