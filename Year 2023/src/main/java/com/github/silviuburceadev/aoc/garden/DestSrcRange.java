@@ -1,7 +1,13 @@
 package com.github.silviuburceadev.aoc.garden;
 
+import static java.lang.Integer.parseInt;
+
 public record DestSrcRange(int destination, int source, int range) {
     public DestSrcRange(String input) {
-        this(0, 0, 0);
+        this(input.split("\\s+"));
+    }
+
+    private DestSrcRange(String[] input) {
+        this(parseInt(input[0]), parseInt(input[1]), parseInt(input[2]));
     }
 }
