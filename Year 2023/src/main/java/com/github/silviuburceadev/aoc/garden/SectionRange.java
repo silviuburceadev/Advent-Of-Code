@@ -5,6 +5,11 @@ import java.util.List;
 public record SectionRange(String name, List<DestSrcRange> ranges) {
 
     public long apply(long seed) {
-        return 0;
+        for (DestSrcRange range : ranges) {
+            if (range.accepts(seed)) {
+                return range.apply(seed);
+            }
+        }
+        return seed;
     }
 }

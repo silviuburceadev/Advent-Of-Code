@@ -12,7 +12,11 @@ public record DestSrcRange(long destination, long source, long range) {
     }
 
     public long apply(long seed) {
-        if (seed < source || seed >= source + range) return seed;
+        if (!accepts(seed)) return seed;
         return seed + (destination - source);
+    }
+
+    public boolean accepts(long seed) {
+        return seed >= source && seed < source + range;
     }
 }
