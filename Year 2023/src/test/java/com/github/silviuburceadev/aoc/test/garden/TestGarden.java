@@ -4,6 +4,12 @@ import com.github.silviuburceadev.aoc.garden.Garden;
 import com.github.silviuburceadev.aoc.garden.SectionRange;
 import org.junit.jupiter.api.Test;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestGarden {
@@ -70,4 +76,15 @@ public class TestGarden {
         assertEquals(35, garden.lowestLocation());
     }
 
+    @Test
+    public void testApplyMainInput() throws IOException {
+        try (InputStream resource = TestGarden.class.getResourceAsStream("day5.in")) {
+            assert resource != null;
+            try (InputStreamReader inputStreamReader = new InputStreamReader(resource, StandardCharsets.UTF_8);
+                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
+                final Garden garden = Garden.parse(bufferedReader.lines().toList());
+                assertEquals(107430936L, garden.lowestLocation());
+            }
+        }
+    }
 }

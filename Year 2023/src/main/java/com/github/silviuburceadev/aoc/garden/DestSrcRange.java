@@ -1,6 +1,6 @@
 package com.github.silviuburceadev.aoc.garden;
 
-import static java.lang.Integer.parseInt;
+import static java.lang.Long.parseLong;
 
 public record DestSrcRange(long destination, long source, long range) {
     public DestSrcRange(String input) {
@@ -8,7 +8,7 @@ public record DestSrcRange(long destination, long source, long range) {
     }
 
     private DestSrcRange(String[] input) {
-        this(parseInt(input[0]), parseInt(input[1]), parseInt(input[2]));
+        this(parseLong(input[0]), parseLong(input[1]), parseLong(input[2]));
     }
 
     public long apply(long seed) {
