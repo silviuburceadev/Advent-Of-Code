@@ -63,4 +63,11 @@ public class TestGarden {
         assertEquals(86L, garden.apply(55L));
         assertEquals(35L, garden.apply(13L));
     }
+
+    @Test
+    public void testLowestLocation() {
+        final Garden garden = Garden.parse(SAMPLE);
+        assertEquals(35, garden.lowestLocation());
+    }
+
 }
