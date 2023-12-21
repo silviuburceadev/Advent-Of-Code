@@ -29,11 +29,12 @@ public record Garden(List<Long> seeds, List<SectionRange> sections) {
                 // reset ranges
                 ranges = new ArrayList<>();
             }
+            if (i == input.size() - 1) {
+                // add last section
+                sections.add(new SectionRange(name, ranges));
+            }
         }
-        if (!input.get(input.size() - 1).isBlank()) {
-            // add last section
-            sections.add(new SectionRange(name, ranges));
-        }
+
         return new Garden(
             stream(seeds.split("\\D+")).map(Long::valueOf).toList(),
             sections
@@ -52,6 +53,8 @@ public record Garden(List<Long> seeds, List<SectionRange> sections) {
     }
 
     public long lowestLocation() {
-        return 0;
+        // no need to check if optional is present, as we have more than 0 seeds
+        // noinspection OptionalGetWithoutIsPresent
+        return seeds.stream().mapToLong(this::apply).min().getAsLong();
     }
 }
