@@ -12,15 +12,15 @@ import java.nio.charset.StandardCharsets;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class TestCard {
+public class TestGame {
 
     @Test
     public void testParsingGame() {
         final Game game = Game.parse("Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53");
-        assertNotNull(game.winningCard());
-        assertEquals(5, game.winningCard().numbers().size());
-        assertNotNull(game.playingCard());
-        assertEquals(8, game.playingCard().numbers().size());
+        assertNotNull(game.winningNumbers());
+        assertEquals(5, game.winningNumbers().size());
+        assertNotNull(game.playingNumbers());
+        assertEquals(8, game.playingNumbers().size());
     }
 
     @Test
@@ -35,7 +35,7 @@ public class TestCard {
 
     @Test
     public void testPointsMainInput() throws IOException {
-        try (InputStream resource = TestCard.class.getResourceAsStream("day4.in")) {
+        try (InputStream resource = TestGame.class.getResourceAsStream("day4.in")) {
             assert resource != null;
             try (InputStreamReader inputStreamReader = new InputStreamReader(resource, StandardCharsets.UTF_8);
                  BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {

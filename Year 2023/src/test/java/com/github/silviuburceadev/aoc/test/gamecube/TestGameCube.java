@@ -17,11 +17,12 @@ public class TestGameCube {
 
     @Test
     public void testParseGame() {
+        // Note: yellow will be ignored
         assertEquals(new GameCube(1, Arrays.asList(
                 new GameCubeSet(4, 0, 3),
                 new GameCubeSet(1, 2, 6),
                 new GameCubeSet(0, 2, 0)
-        )), GameCube.parse("Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green"));
+        )), GameCube.parse("Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green, 5 yellow"));
     }
 
     @Test
