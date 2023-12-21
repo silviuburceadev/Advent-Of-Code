@@ -1,6 +1,7 @@
 package com.github.silviuburceadev.aoc.test.garden;
 
 import com.github.silviuburceadev.aoc.garden.Garden;
+import com.github.silviuburceadev.aoc.garden.SectionRange;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -44,8 +45,12 @@ public class TestGarden {
             """.split(System.lineSeparator());
 
     @Test
-    public void testParseSeeds() {
+    public void testParseGarden() {
         Garden garden = Garden.parse(SAMPLE);
         assertEquals(4, garden.getSeeds().size());
+        assertEquals(7, garden.sections().size());
+        SectionRange section = garden.sections().get(0);
+        assertEquals("seed-to-soil", section.name());
+        assertEquals(2, section.ranges().size());
     }
 }
