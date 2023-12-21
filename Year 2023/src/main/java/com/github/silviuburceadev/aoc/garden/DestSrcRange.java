@@ -10,4 +10,8 @@ public record DestSrcRange(int destination, int source, int range) {
     private DestSrcRange(String[] input) {
         this(parseInt(input[0]), parseInt(input[1]), parseInt(input[2]));
     }
+
+    public int map(int i) {
+        return 0;
+    }
 }
