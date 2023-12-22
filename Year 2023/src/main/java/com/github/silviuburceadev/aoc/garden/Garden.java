@@ -71,6 +71,8 @@ public record Garden(List<Long> seeds, List<SectionRange> sections) {
     }
 
     public long rangeLowestLocation() {
-        return 0;
+        // no need to check if optional is present, as we have more than 0 seeds
+        // noinspection OptionalGetWithoutIsPresent
+        return seedsAsRange().stream().mapToLong(this::apply).min().getAsLong();
     }
 }
