@@ -93,4 +93,10 @@ public class TestGarden {
         final Garden garden = Garden.parse(SAMPLE);
         assertEquals(27, garden.seedsAsRange().size());
     }
+
+    @Test
+    public void testRangeLowestLocation() {
+        final Garden garden = Garden.parse(SAMPLE);
+        assertEquals(46L, garden.rangeLowestLocation());
+    }
 }

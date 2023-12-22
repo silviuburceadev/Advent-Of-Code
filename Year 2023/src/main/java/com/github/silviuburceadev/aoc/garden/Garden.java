@@ -69,4 +69,8 @@ public record Garden(List<Long> seeds, List<SectionRange> sections) {
         }
         return totalSeeds;
     }
+
+    public long rangeLowestLocation() {
+        return 0;
+    }
 }
