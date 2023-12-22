@@ -59,6 +59,14 @@ public record Garden(List<Long> seeds, List<SectionRange> sections) {
     }
 
     public List<Long> seedsAsRange() {
-        return new ArrayList<>();
+        List<Long> totalSeeds = new ArrayList<>();
+        for (int i = 0; i < seeds.size(); i+=2) {
+            long start = seeds.get(i);
+            long length = seeds.get(i + 1);
+            for (int j = 0; j < length; j++) {
+                totalSeeds.add(start + j);
+            }
+        }
+        return totalSeeds;
     }
 }
