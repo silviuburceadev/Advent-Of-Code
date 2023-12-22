@@ -87,4 +87,10 @@ public class TestGarden {
             }
         }
     }
+
+    @Test
+    public void testSeedsAsRange() {
+        final Garden garden = Garden.parse(SAMPLE);
+        assertEquals(27, garden.seedsAsRange().size());
+    }
 }

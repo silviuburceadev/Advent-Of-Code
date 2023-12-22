@@ -57,4 +57,8 @@ public record Garden(List<Long> seeds, List<SectionRange> sections) {
         // noinspection OptionalGetWithoutIsPresent
         return seeds.stream().mapToLong(this::apply).min().getAsLong();
     }
+
+    public List<Long> seedsAsRange() {
+        return new ArrayList<>();
+    }
 }
