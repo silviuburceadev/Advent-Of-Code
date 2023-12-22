@@ -99,4 +99,16 @@ public class TestGarden {
         final Garden garden = Garden.parse(SAMPLE);
         assertEquals(46L, garden.rangeLowestLocation());
     }
+
+    @Test
+    public void testRangeApplyMainInput() throws IOException {
+        try (InputStream resource = TestGarden.class.getResourceAsStream("day5.in")) {
+            assert resource != null;
+            try (InputStreamReader inputStreamReader = new InputStreamReader(resource, StandardCharsets.UTF_8);
+                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
+                final Garden garden = Garden.parse(bufferedReader.lines().toList());
+                assertEquals(107430936L, garden.rangeLowestLocation());
+            }
+        }
+    }
 }
