@@ -3,15 +3,37 @@ package com.github.silviuburceadev.aoc.garden;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 
-import static java.util.Arrays.stream;
+import static java.lang.Long.parseLong;
 
-public record Garden(List<Long> seeds, List<SectionRange> sections) {
-    public static Garden parse(String[] input) {
-        return parse(Arrays.asList(input));
+public record Garden(List<Range> seeds, List<SectionRange> sections) {
+
+    public static final Function<String, List<Range>> SINGLE_SEED = (input) -> {
+        final String[] seeds = input.split("\\s+");
+        final List<Range> seedRanges = new ArrayList<>();
+        for (String seed : seeds) {
+            long seedNo = Long.parseLong(seed);
+            seedRanges.add(new Range(seedNo, seedNo + 1L));
+        }
+        return seedRanges;
+    };
+    public static final Function<String, List<Range>> RANGE_SEED = (input) -> {
+        final String[] seeds = input.split("\\s+");
+        final List<Range> seedRanges = new ArrayList<>();
+        for (int i = 0; i < seeds.length; i+=2) {
+            long seedLow = parseLong(seeds[i]);
+            long length = parseLong(seeds[i + 1]);
+            seedRanges.add(new Range(seedLow, seedLow + length));
+        }
+        return seedRanges;
+    };
+
+    public static Garden parse(String[] input, Function<String, List<Range>> seedsParser) {
+        return parse(Arrays.asList(input), seedsParser);
     }
 
-    public static Garden parse(List<String> input) {
+    public static Garden parse(List<String> input, Function<String, List<Range>> seedsParser) {
         final String seeds = input.get(0).substring("seeds: ".length());
         String name = null;
         List<SectionRange> sections = new ArrayList<>();
@@ -36,13 +58,17 @@ public record Garden(List<Long> seeds, List<SectionRange> sections) {
         }
 
         return new Garden(
-            stream(seeds.split("\\D+")).map(Long::valueOf).toList(),
+            seedsParser.apply(seeds),
             sections
         );
     }
 
-    public List<Long> getSeeds() {
+    public List<Range> getSeeds() {
         return seeds;
+    }
+
+    public long getTotalSeeds() {
+        return seeds.stream().mapToLong(Range::length).sum();
     }
 
     public long apply(long seed) {
@@ -53,26 +79,12 @@ public record Garden(List<Long> seeds, List<SectionRange> sections) {
     }
 
     public long lowestLocation() {
-        // no need to check if optional is present, as we have more than 0 seeds
-        // noinspection OptionalGetWithoutIsPresent
-        return seeds.stream().mapToLong(this::apply).min().getAsLong();
-    }
-
-    public List<Long> seedsAsRange() {
-        List<Long> totalSeeds = new ArrayList<>();
-        for (int i = 0; i < seeds.size(); i+=2) {
-            long start = seeds.get(i);
-            long length = seeds.get(i + 1);
-            for (int j = 0; j < length; j++) {
-                totalSeeds.add(start + j);
+        long lowest = Long.MAX_VALUE;
+        for (Range seedRange : seeds) {
+            for (Long seed : seedRange) {
+                lowest = Math.min(lowest, apply(seed));
             }
         }
-        return totalSeeds;
-    }
-
-    public long rangeLowestLocation() {
-        // no need to check if optional is present, as we have more than 0 seeds
-        // noinspection OptionalGetWithoutIsPresent
-        return seedsAsRange().stream().mapToLong(this::apply).min().getAsLong();
+        return lowest;
     }
 }

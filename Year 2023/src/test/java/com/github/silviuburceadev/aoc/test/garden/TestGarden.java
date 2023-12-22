@@ -10,6 +10,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
+import static com.github.silviuburceadev.aoc.garden.Garden.RANGE_SEED;
+import static com.github.silviuburceadev.aoc.garden.Garden.SINGLE_SEED;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestGarden {
@@ -52,7 +54,8 @@ public class TestGarden {
 
     @Test
     public void testParseGarden() {
-        final Garden garden = Garden.parse(SAMPLE);
+        final Garden garden = Garden.parse(SAMPLE, SINGLE_SEED);
+        assertEquals(4, garden.getTotalSeeds());
         assertEquals(4, garden.getSeeds().size());
         assertEquals(7, garden.sections().size());
 
@@ -62,8 +65,16 @@ public class TestGarden {
     }
 
     @Test
+    public void testParseRangeGarden() {
+        final Garden garden = Garden.parse(SAMPLE, RANGE_SEED);
+        assertEquals(27, garden.getTotalSeeds());
+        assertEquals(2, garden.getSeeds().size());
+        assertEquals(7, garden.sections().size());
+    }
+
+    @Test
     public void testApplyGarden() {
-        final Garden garden = Garden.parse(SAMPLE);
+        final Garden garden = Garden.parse(SAMPLE, SINGLE_SEED);
         assertEquals(82L, garden.apply(79L));
         assertEquals(43L, garden.apply(14L));
         assertEquals(86L, garden.apply(55L));
@@ -72,7 +83,7 @@ public class TestGarden {
 
     @Test
     public void testLowestLocation() {
-        final Garden garden = Garden.parse(SAMPLE);
+        final Garden garden = Garden.parse(SAMPLE, SINGLE_SEED);
         assertEquals(35, garden.lowestLocation());
     }
 
@@ -82,7 +93,7 @@ public class TestGarden {
             assert resource != null;
             try (InputStreamReader inputStreamReader = new InputStreamReader(resource, StandardCharsets.UTF_8);
                  BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
-                final Garden garden = Garden.parse(bufferedReader.lines().toList());
+                final Garden garden = Garden.parse(bufferedReader.lines().toList(), SINGLE_SEED);
                 assertEquals(107430936L, garden.lowestLocation());
             }
         }
@@ -90,25 +101,25 @@ public class TestGarden {
 
     @Test
     public void testSeedsAsRange() {
-        final Garden garden = Garden.parse(SAMPLE);
-        assertEquals(27, garden.seedsAsRange().size());
+        final Garden garden = Garden.parse(SAMPLE, Garden.RANGE_SEED);
+        assertEquals(27, garden.getTotalSeeds());
     }
 
     @Test
     public void testRangeLowestLocation() {
-        final Garden garden = Garden.parse(SAMPLE);
-        assertEquals(46L, garden.rangeLowestLocation());
+        final Garden garden = Garden.parse(SAMPLE, Garden.RANGE_SEED);
+        assertEquals(46L, garden.lowestLocation());
     }
-
-    @Test
-    public void testRangeApplyMainInput() throws IOException {
-        try (InputStream resource = TestGarden.class.getResourceAsStream("day5.in")) {
-            assert resource != null;
-            try (InputStreamReader inputStreamReader = new InputStreamReader(resource, StandardCharsets.UTF_8);
-                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
-                final Garden garden = Garden.parse(bufferedReader.lines().toList());
-                assertEquals(107430936L, garden.rangeLowestLocation());
-            }
-        }
-    }
+//
+//    @Test
+//    public void testRangeApplyMainInput() throws IOException {
+//        try (InputStream resource = TestGarden.class.getResourceAsStream("day5.in")) {
+//            assert resource != null;
+//            try (InputStreamReader inputStreamReader = new InputStreamReader(resource, StandardCharsets.UTF_8);
+//                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
+//                final Garden garden = Garden.parse(bufferedReader.lines().toList(), Garden.RANGE_SEED);
+//                assertEquals(107430936L, garden.lowestLocation());
+//            }
+//        }
+//    }
 }

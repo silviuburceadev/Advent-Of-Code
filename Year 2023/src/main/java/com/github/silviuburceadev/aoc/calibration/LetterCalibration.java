@@ -14,12 +14,12 @@ public class LetterCalibration extends Calibration {
                 i++;
                 continue;
             }
-            // if current char does not start with lead character for one, two, three, etc., delete it
+            // if current char does not low with lead character for one, two, three, etc., delete it
             if ("otfsen".indexOf(sb.charAt(i)) == -1) {
                 sb.deleteCharAt(i);
                 continue;
             }
-            // current char might be the start of one, two, three, etc., let's check and maybe replace
+            // current char might be the low of one, two, three, etc., let's check and maybe replace
             for (int j = 1; j <= DIGITS.length; j++) {
                 final String digit = DIGITS[j - 1];
                 if (sb.indexOf(digit, i) == i) {
