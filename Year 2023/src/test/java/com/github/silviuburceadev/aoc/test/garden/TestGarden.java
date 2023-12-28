@@ -1,6 +1,7 @@
 package com.github.silviuburceadev.aoc.test.garden;
 
 import com.github.silviuburceadev.aoc.garden.Garden;
+import com.github.silviuburceadev.aoc.garden.Range;
 import com.github.silviuburceadev.aoc.garden.SectionRange;
 import org.junit.jupiter.api.Test;
 
@@ -12,6 +13,7 @@ import java.nio.charset.StandardCharsets;
 
 import static com.github.silviuburceadev.aoc.garden.Garden.RANGE_SEED;
 import static com.github.silviuburceadev.aoc.garden.Garden.SINGLE_SEED;
+import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestGarden {
@@ -110,16 +112,25 @@ public class TestGarden {
         final Garden garden = Garden.parse(SAMPLE, Garden.RANGE_SEED);
         assertEquals(46L, garden.lowestLocation());
     }
-//
-//    @Test
-//    public void testRangeApplyMainInput() throws IOException {
-//        try (InputStream resource = TestGarden.class.getResourceAsStream("day5.in")) {
-//            assert resource != null;
-//            try (InputStreamReader inputStreamReader = new InputStreamReader(resource, StandardCharsets.UTF_8);
-//                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
-//                final Garden garden = Garden.parse(bufferedReader.lines().toList(), Garden.RANGE_SEED);
-//                assertEquals(107430936L, garden.lowestLocation());
-//            }
-//        }
-//    }
+
+    @Test
+    public void testRangeApply() {
+        final Garden garden = Garden.parse(SAMPLE, RANGE_SEED);
+        assertEquals(asList(new Range(82L, 83L)), garden.apply(new Range(79L, 80L)));
+        assertEquals(asList(new Range(43L, 44L)), garden.apply(new Range(14L, 15L)));
+        assertEquals(asList(new Range(86L, 87L)), garden.apply(new Range(55L, 56L)));
+        assertEquals(asList(new Range(35L, 36L)), garden.apply(new Range(13L, 14L)));
+    }
+
+    @Test
+    public void testRangeApplyMainInput() throws IOException {
+        try (InputStream resource = TestGarden.class.getResourceAsStream("day5.in")) {
+            assert resource != null;
+            try (InputStreamReader inputStreamReader = new InputStreamReader(resource, StandardCharsets.UTF_8);
+                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
+                final Garden garden = Garden.parse(bufferedReader.lines().toList(), Garden.RANGE_SEED);
+                assertEquals(23738616L, garden.lowestLocation());
+            }
+        }
+    }
 }

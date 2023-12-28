@@ -78,13 +78,20 @@ public record Garden(List<Range> seeds, List<SectionRange> sections) {
         return seed;
     }
 
-    public long lowestLocation() {
-        long lowest = Long.MAX_VALUE;
-        for (Range seedRange : seeds) {
-            for (Long seed : seedRange) {
-                lowest = Math.min(lowest, apply(seed));
-            }
+    public List<Range> apply(Range range) {
+        List<Range> ranges = new ArrayList<>(Arrays.asList(range));
+        for (SectionRange section : sections) {
+            ranges = ranges.stream().flatMap(r -> section.apply(r).stream()).toList();
         }
-        return lowest;
+        return ranges;
+    }
+
+    public long lowestLocation() {
+        return seeds.stream()
+                .flatMap(seed -> apply(seed).stream())
+                .mapToLong(Range::low)
+                .min()
+                .orElse(Long.MAX_VALUE);
+
     }
 }

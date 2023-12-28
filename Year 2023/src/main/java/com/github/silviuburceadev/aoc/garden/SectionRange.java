@@ -29,7 +29,15 @@ public record SectionRange(String name, List<DestSrcRange> ranges) {
                 if (mappedRanges.size() == 1) {
                     results.addAll(mappedRanges);
                 } else {
-                    toProcess.addAll(mappedRanges);
+                    for (Range mapped : mappedRanges) {
+                        if (mapped.low() == mapper.destination()) {
+                            // do not reprocess it by other mappers
+                            results.add(mapped);
+                        } else {
+                            // this is a part of the given range, but it wasn't processed by the current mapper
+                            toProcess.add(mapped);
+                        }
+                    }
                 }
                 isProcessed = true;
                 break;

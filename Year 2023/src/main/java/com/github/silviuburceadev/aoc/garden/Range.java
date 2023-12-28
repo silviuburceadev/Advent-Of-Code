@@ -1,19 +1,18 @@
 package com.github.silviuburceadev.aoc.garden;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import static java.util.Arrays.asList;
 
-public record Range(long low, long high) implements Iterable<Long> {
+public record Range(long low, long high) {
 
     public List<Range> split(Range range) {
         if (this.equals(range)) {
             return asList(this);
         }
 
-        if (range.high < low || range.low() > this.high) {
+        if (range.high < low || range.low > this.high) {
             // no overlap, return the range unchanged
             return asList(this);
         }
@@ -39,7 +38,6 @@ public record Range(long low, long high) implements Iterable<Long> {
             } else {
                 // add the overlap
                 ranges.add(new Range(this.low, range.high));
-                ranges.add(new Range(range.high, this.high));
             }
         } else {
             // they start at the same point
@@ -63,24 +61,6 @@ public record Range(long low, long high) implements Iterable<Long> {
 
     public boolean contains(Range range) {
         return low <= range.low && range.high <= high;
-    }
-
-    @Override
-    public Iterator<Long> iterator() {
-
-        return new Iterator<>() {
-            private long current = low;
-
-            @Override
-            public boolean hasNext() {
-                return current < Range.this.high;
-            }
-
-            @Override
-            public Long next() {
-                return current++;
-            }
-        };
     }
 
     public long length() {
