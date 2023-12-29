@@ -38,6 +38,10 @@ public record Range(long low, long high) {
             } else {
                 // add the overlap
                 ranges.add(new Range(this.low, range.high));
+                if (range.high < this.high) {
+                    // add the extra part
+                    ranges.add(new Range(range.high, this.high));
+                }
             }
         } else {
             // they start at the same point
