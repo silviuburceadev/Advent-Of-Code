@@ -4,6 +4,11 @@ import com.github.silviuburceadev.aoc.race.Championship;
 import com.github.silviuburceadev.aoc.race.Race;
 import org.junit.jupiter.api.Test;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import static java.util.Arrays.asList;
@@ -29,5 +34,17 @@ public class TestChampionship {
             new Race(30, 200)
         ));
         assertEquals(288, championship.waysToWin());
+    }
+
+    @Test
+    public void testWaysToWinMainInput() throws IOException {
+        try (InputStream resource = TestChampionship.class.getResourceAsStream("day6.in")) {
+            assert resource != null;
+            try (InputStreamReader inputStreamReader = new InputStreamReader(resource, StandardCharsets.UTF_8);
+                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
+                final List<String> lines = bufferedReader.lines().toList();
+                assertEquals(505494, Championship.parse(lines.get(0), lines.get(1)).waysToWin());
+            }
+        }
     }
 }
