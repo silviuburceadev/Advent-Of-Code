@@ -9,7 +9,8 @@ public class TestRace {
 
     @Test
     public void testRace() {
-        final Race race = new Race(7, 9);
-        assertEquals(4, race.waysToWin());
+        assertEquals(4, new Race(7, 9).waysToWin());
+        assertEquals(8, new Race(15, 40).waysToWin());
+        assertEquals(9, new Race(30, 200).waysToWin());
     }
 }
