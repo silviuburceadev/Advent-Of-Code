@@ -24,6 +24,6 @@ public record Championship(List<Race> races) {
     }
 
     public int waysToWin() {
-        return 0;
+        return races.stream().mapToInt(Race::waysToWin).reduce(1, (a, b) -> a * b);
     }
 }
