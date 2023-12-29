@@ -50,7 +50,7 @@ public record Range(long low, long high) {
                 ranges.add(range);
                 // add the extra
                 ranges.add(new Range(range.high, this.high));
-            } else if (this.high < range.high) {
+            } else {
                 // the given range completely contains this range, so this range is the common part
                 ranges.add(this);
             }
