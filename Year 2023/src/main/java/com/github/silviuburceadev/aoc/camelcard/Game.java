@@ -6,10 +6,10 @@ import java.util.List;
 
 public record Game(List<PlayingHand> playingHands) {
 
-    public int winnings() {
+    public long winnings() {
         List<PlayingHand> copy = new ArrayList<>(playingHands);
         Collections.sort(copy);
-        int total = 0;
+        long total = 0;
         for (int i = 0; i < copy.size(); i++) {
             total += copy.get(i).bet() * (i + 1);
         }
