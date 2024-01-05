@@ -1,8 +1,7 @@
 package com.github.silviuburceadev.aoc.camelmap;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.function.Predicate;
 
 public class LRMap {
 
@@ -27,22 +26,6 @@ public class LRMap {
         nodes.put(node.label(), node);
     }
 
-    public Node initialize() {
-        return currentNode = nodes.get("AAA");
-    }
-
-    public Node goLeft() {
-        return currentNode = nodes.get(currentNode.left());
-    }
-
-    public Node goRight() {
-        return currentNode = nodes.get(currentNode.right());
-    }
-
-    private Node go(char direction) {
-        return direction == 'L' ? goLeft() : goRight();
-    }
-
     public void setDirection(String direction) {
         this.direction = direction;
     }
@@ -51,12 +34,27 @@ public class LRMap {
         return direction;
     }
 
-    public int stepsTo(String endLabel) {
+    public long steps(Predicate<String> from, Predicate<String> to) {
+        return nodes.keySet().stream()
+                .filter(from)
+                .mapToLong(key -> this.steps(nodes.get(key), to))
+                .reduce(1, (a, b) -> a * b / gcd(a, b));
+    }
+
+    private long gcd(long a, long b) {
+        if (a % b == 0) {
+            return b;
+        }
+        return gcd(b, a % b);
+    }
+
+    private long steps(Node node, Predicate<String> to) {
         int steps = 0;
         char[] chars = direction.toCharArray();
         int length = direction.length();
-        while (!currentNode.label().equals(endLabel)) {
-            currentNode = go(chars[steps++ % length]);
+        while (!to.test(node.label())) {
+            char dir = chars[steps++ % length];
+            node = dir == 'L' ? nodes.get(node.left()) : nodes.get(node.right());
         }
         return steps;
     }

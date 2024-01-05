@@ -28,18 +28,7 @@ public class TestLRMap {
             ZZZ = (ZZZ, ZZZ)""".split(System.lineSeparator());
         final LRMap map = new LRMap(input);
         assertEquals("RL", map.getDirection());
-        assertEquals("AAA", map.initialize().label());
-        assertEquals(2, map.stepsTo("ZZZ"));
-    }
-    @Test
-    public void testLeftRight() {
-        final LRMap map = new LRMap();
-        map.addNode(new Node("AAA", "BBB", "CCC"));
-        map.addNode(new Node("CCC", "ZZZ", "GGG"));
-        map.addNode(new Node("ZZZ", "ZZZ", "ZZZ"));
-        assertEquals("AAA", map.initialize().label());
-        assertEquals("CCC", map.goRight().label());
-        assertEquals("ZZZ", map.goLeft().label());
+        assertEquals(2, map.steps(label -> label.equals("AAA"), label -> label.equals("ZZZ")));
     }
 
     @Test
@@ -52,9 +41,8 @@ public class TestLRMap {
         map.addNode(new Node("EEE", "EEE", "EEE"));
         map.addNode(new Node("GGG", "GGG", "GGG"));
         map.addNode(new Node("ZZZ", "ZZZ", "ZZZ"));
-        assertEquals("AAA", map.initialize().label());
         map.setDirection("RL");
-        assertEquals(2, map.stepsTo("ZZZ"));
+        assertEquals(2, map.steps(label -> label.equals("AAA"), label -> label.equals("ZZZ")));
     }
 
     @Test
@@ -63,9 +51,8 @@ public class TestLRMap {
         map.addNode(new Node("AAA", "BBB", "BBB"));
         map.addNode(new Node("BBB", "AAA", "ZZZ"));
         map.addNode(new Node("ZZZ", "ZZZ", "ZZZ"));
-        assertEquals("AAA", map.initialize().label());
         map.setDirection("LLR");
-        assertEquals(6, map.stepsTo("ZZZ"));
+        assertEquals(6, map.steps(label -> label.equals("AAA"), label -> label.equals("ZZZ")));
     }
 
     @Test
@@ -76,8 +63,20 @@ public class TestLRMap {
                  BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
                 final String[] lines = bufferedReader.lines().toArray(String[]::new);
                 final LRMap map = new LRMap(lines);
-                assertEquals("AAA", map.initialize().label());
-                assertEquals(14893, map.stepsTo("ZZZ"));
+                assertEquals(14893, map.steps(label -> label.equals("AAA"), label -> label.equals("ZZZ")));
+            }
+        }
+    }
+
+    @Test
+    public void testMainMultipleInput() throws IOException {
+        try (InputStream resource = TestLRMap.class.getResourceAsStream("day8.in")) {
+            assert resource != null;
+            try (InputStreamReader inputStreamReader = new InputStreamReader(resource, StandardCharsets.UTF_8);
+                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
+                final String[] lines = bufferedReader.lines().toArray(String[]::new);
+                final LRMap map = new LRMap(lines);
+                assertEquals(10241191004509L, map.steps((label) -> label.endsWith("A"), (label) -> label.endsWith("Z")));
             }
         }
     }
