@@ -5,6 +5,7 @@ module year_2023_main {
     // app
     exports com.github.silviuburceadev.aoc.calibration;
     exports com.github.silviuburceadev.aoc.camelcard;
+    exports com.github.silviuburceadev.aoc.camelmap;
     exports com.github.silviuburceadev.aoc.engine;
     exports com.github.silviuburceadev.aoc.gamecube;
     exports com.github.silviuburceadev.aoc.garden;
