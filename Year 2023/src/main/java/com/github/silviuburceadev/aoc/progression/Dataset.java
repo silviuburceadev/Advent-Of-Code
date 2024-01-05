@@ -11,6 +11,7 @@ public record Dataset(List<Integer> values) {
     }
 
     public boolean isConstant() {
-        return false;
+        final Integer firstElem = values.get(0);
+        return values.stream().allMatch(v -> v.equals(firstElem));
     }
 }
