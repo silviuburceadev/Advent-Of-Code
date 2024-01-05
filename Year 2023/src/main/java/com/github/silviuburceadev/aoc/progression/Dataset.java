@@ -4,11 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.Arrays.asList;
+import static java.util.Arrays.stream;
 
 public record Dataset(List<Integer> values) {
 
     public Dataset(Integer... values) {
         this(asList(values));
+    }
+
+    public Dataset(String line) {
+        this(stream(line.split("\\s+")).map(Integer::valueOf).toList());
     }
 
     public boolean isConstant() {
