@@ -26,6 +26,11 @@ public record Dataset(List<Integer> values) {
     }
 
     public int getNextValue() {
-        return 0;
+        final Dataset progression = getProgression();
+        if (progression.isConstant()) {
+            return values.get(values.size() - 1) + progression.values.get(0);
+        } else {
+            return values.get(values.size() - 1) + progression.getNextValue();
+        }
     }
 }
