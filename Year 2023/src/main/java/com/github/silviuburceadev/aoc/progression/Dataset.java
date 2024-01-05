@@ -40,6 +40,11 @@ public record Dataset(List<Integer> values) {
     }
 
     public int getPreviousValue() {
-        return 0;
+        final Dataset progression = getProgression();
+        if (progression.isConstant()) {
+            return values.get(0) - progression.values.get(0);
+        } else {
+            return values.get(0) - progression.getPreviousValue();
+        }
     }
 }
