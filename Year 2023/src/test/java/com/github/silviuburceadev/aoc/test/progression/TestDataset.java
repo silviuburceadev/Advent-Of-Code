@@ -12,4 +12,14 @@ public class TestDataset {
         assertFalse(new Dataset(0, 3, 6, 9, 12, 15).isConstant());
         assertTrue(new Dataset(0, 0, 0, 0, 0, 0).isConstant());
     }
+
+    @Test
+    public void testProgression() {
+        final Dataset dataset = new Dataset(0, 3, 6, 9, 12, 15);
+        final Dataset progression = dataset.getProgression();
+        final Dataset expected = new Dataset(3, 3, 3, 3, 3);
+        assertNotNull(progression);
+        assertEquals(expected, progression);
+        assertTrue(progression.isConstant());
+    }
 }
