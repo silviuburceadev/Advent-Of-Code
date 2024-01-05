@@ -38,4 +38,8 @@ public record Dataset(List<Integer> values) {
             return values.get(values.size() - 1) + progression.getNextValue();
         }
     }
+
+    public int getPreviousValue() {
+        return 0;
+    }
 }

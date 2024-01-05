@@ -39,6 +39,13 @@ public class TestDataset {
     }
 
     @Test
+    public void testPreviousValue() {
+        assertEquals(-3, new Dataset(0, 3, 6, 9, 12, 15).getPreviousValue());
+        assertEquals(0, new Dataset(1, 3, 6, 10, 15, 21).getPreviousValue());
+        assertEquals(5, new Dataset(10, 13, 16, 21, 30, 45).getPreviousValue());
+    }
+
+    @Test
     public void testSample() {
         final List<Dataset> datasets = asList(
             new Dataset(0, 3, 6, 9, 12, 15),
@@ -54,7 +61,7 @@ public class TestDataset {
             assert resource != null;
             try (InputStreamReader inputStreamReader = new InputStreamReader(resource, StandardCharsets.UTF_8);
                  BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
-                assertEquals(0, bufferedReader.lines().map(Dataset::new).mapToInt(Dataset::getNextValue).sum());
+                assertEquals(2105961943, bufferedReader.lines().map(Dataset::new).mapToInt(Dataset::getNextValue).sum());
             }
         }
     }
