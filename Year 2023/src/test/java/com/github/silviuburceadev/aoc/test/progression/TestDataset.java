@@ -22,4 +22,10 @@ public class TestDataset {
         assertEquals(expected, progression);
         assertTrue(progression.isConstant());
     }
+
+    @Test
+    public void testNextValue() {
+        final Dataset dataset = new Dataset(0, 3, 6, 9, 12, 15);
+        assertEquals(18, dataset.getNextValue());
+    }
 }

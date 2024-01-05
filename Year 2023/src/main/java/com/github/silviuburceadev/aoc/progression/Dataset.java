@@ -24,4 +24,8 @@ public record Dataset(List<Integer> values) {
         }
         return new Dataset(progression);
     }
+
+    public int getNextValue() {
+        return 0;
+    }
 }
