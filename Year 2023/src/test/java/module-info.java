@@ -11,6 +11,7 @@ module year_2023_main_test {
     exports com.github.silviuburceadev.aoc.test.engine;
     exports com.github.silviuburceadev.aoc.test.gamecube;
     exports com.github.silviuburceadev.aoc.test.garden;
+    exports com.github.silviuburceadev.aoc.test.progression;
     exports com.github.silviuburceadev.aoc.test.race;
     exports com.github.silviuburceadev.aoc.test.scratchcard;
 }
