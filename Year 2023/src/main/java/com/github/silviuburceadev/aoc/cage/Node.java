@@ -27,4 +27,16 @@ public class Node {
     public void setNext(Node next) {
         this.next = next;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.symbol);
+        Node copy = this.next;
+        while (copy != this && copy != null) {
+            sb.append(copy.symbol);
+            copy = copy.next;
+        }
+        return sb.toString();
+    }
 }
