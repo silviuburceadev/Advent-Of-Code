@@ -2,31 +2,49 @@ package com.github.silviuburceadev.aoc.cage;
 
 import java.util.List;
 
-import static java.util.Arrays.asList;
-
 public enum Direction {
     NORTH("|F7", -1, 0) {
         @Override
-        public List<Direction> availableDirections() {
-            return asList(NORTH, EAST, WEST);
+        public Direction next(char symbol) {
+            return switch (symbol) {
+                case '|' -> NORTH;
+                case 'F' -> EAST;
+                case '7' -> WEST;
+                default -> null;
+            };
         }
     },
     EAST("-7J", 0, 1) {
         @Override
-        public List<Direction> availableDirections() {
-            return asList(NORTH, EAST, SOUTH);
+        public Direction next(char symbol) {
+            return switch (symbol) {
+                case '-' -> EAST;
+                case '7' -> SOUTH;
+                case 'J' -> NORTH;
+                default -> null;
+            };
         }
     },
     SOUTH("|LJ", 1, 0) {
         @Override
-        public List<Direction> availableDirections() {
-            return asList(EAST, SOUTH, WEST);
+        public Direction next(char symbol) {
+            return switch (symbol) {
+                case '|' -> SOUTH;
+                case 'L' -> EAST;
+                case 'J' -> WEST;
+                default -> null;
+            };
         }
     },
     WEST("-LF", 0, -1) {
         @Override
-        public List<Direction> availableDirections() {
-            return asList(NORTH, SOUTH, WEST);
+        public Direction next(char symbol) {
+            return switch (symbol) {
+                case '-' -> WEST;
+                case 'L' -> NORTH;
+                case 'F' -> SOUTH;
+                default -> null;
+            };
         }
     };
 
@@ -39,26 +57,28 @@ public enum Direction {
         this.moveY = moveY;
     }
 
-    public abstract List<Direction> availableDirections();
+    public abstract Direction next(char symbol);
 
-    public void accept(Node node, String[] input, int i, int j) {
+    public boolean accept(Node node, List<String> input, int i, int j) {
         int row = i + moveX;
         int column = j + moveY;
-        char c = input[row].charAt(column);
-        if (acceptableChars.indexOf(c) != -1) {
-            Node temp = new Node(c);
+        if (row < 0 || row >= input.size()) return false;
+        if (column < 0 || column >= input.get(row).length()) return false;
+        char symbol = input.get(row).charAt(column);
+        if (acceptableChars.indexOf(symbol) != -1) {
+            Node temp = new Node(symbol);
             node.setNext(temp);
             temp.setPrev(node);
-            for (Direction direction : availableDirections()) {
-                direction.accept(temp, input, row, column);
-            }
-        } else if (c == 'S') {
+            return next(symbol).accept(temp, input, row, column);
+        } else if (symbol == 'S') {
             Node start = node;
             while (start.getSymbol() != 'S') {
                 start = start.getPrev();
             }
             node.setNext(start);
             start.setPrev(node);
+            return true;
         }
+        return false;
     }
 }
