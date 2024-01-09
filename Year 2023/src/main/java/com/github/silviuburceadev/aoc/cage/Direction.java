@@ -1,84 +1,40 @@
 package com.github.silviuburceadev.aoc.cage;
 
+import com.github.silviuburceadev.aoc.engine.Coords;
+
 import java.util.List;
 
 public enum Direction {
-    NORTH("|F7", -1, 0) {
-        @Override
-        public Direction next(char symbol) {
-            return switch (symbol) {
-                case '|' -> NORTH;
-                case 'F' -> EAST;
-                case '7' -> WEST;
-                default -> null;
-            };
-        }
-    },
-    EAST("-7J", 0, 1) {
-        @Override
-        public Direction next(char symbol) {
-            return switch (symbol) {
-                case '-' -> EAST;
-                case '7' -> SOUTH;
-                case 'J' -> NORTH;
-                default -> null;
-            };
-        }
-    },
-    SOUTH("|LJ", 1, 0) {
-        @Override
-        public Direction next(char symbol) {
-            return switch (symbol) {
-                case '|' -> SOUTH;
-                case 'L' -> EAST;
-                case 'J' -> WEST;
-                default -> null;
-            };
-        }
-    },
-    WEST("-LF", 0, -1) {
-        @Override
-        public Direction next(char symbol) {
-            return switch (symbol) {
-                case '-' -> WEST;
-                case 'L' -> NORTH;
-                case 'F' -> SOUTH;
-                default -> null;
-            };
-        }
-    };
+    NORTH(-1, 0, "|7FS"),
+    EAST(0, 1, "-J7S"),
+    SOUTH(1, 0, "|JLS"),
+    WEST(0, -1, "-FLS");
 
-    private final String acceptableChars;
+
     private final int moveX, moveY;
+    private final String accepted;
 
-    Direction(String acceptableChars, int moveX, int moveY) {
-        this.acceptableChars = acceptableChars;
+    Direction(int moveX, int moveY, String accepted) {
         this.moveX = moveX;
         this.moveY = moveY;
+        this.accepted = accepted;
     }
 
-    public abstract Direction next(char symbol);
+    public Coords canGo(Coords from, List<String> input, List<Coords> loop) {
+        int row = from.row() + moveX;
+        int column = from.column() + moveY;
+        // can't go out of bounds when start symbol is:
+        // - in the top row, trying to go north
+        // - in the top-right corner, eventually trying to go east
+        if (row < 0) return null;
+        if (column >= input.get(row).length()) return null;
 
-    public boolean accept(Node node, List<String> input, int i, int j) {
-        int row = i + moveX;
-        int column = j + moveY;
-        if (row < 0 || row >= input.size()) return false;
-        if (column < 0 || column >= input.get(row).length()) return false;
         char symbol = input.get(row).charAt(column);
-        if (acceptableChars.indexOf(symbol) != -1) {
-            Node temp = new Node(symbol);
-            node.setNext(temp);
-            temp.setPrev(node);
-            return next(symbol).accept(temp, input, row, column);
-        } else if (symbol == 'S') {
-            Node start = node;
-            while (start.getSymbol() != 'S') {
-                start = start.getPrev();
-            }
-            node.setNext(start);
-            start.setPrev(node);
-            return true;
-        }
-        return false;
+        // can't go with wrong symbol
+        if (accepted.indexOf(symbol) == -1) return null;
+        final Coords coords = new Coords(row, column);
+        // can't go back
+        if (loop.contains(coords)) return null;
+        return coords;
     }
 }

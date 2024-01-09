@@ -1,6 +1,7 @@
 package com.github.silviuburceadev.aoc.test.cage;
 
 import com.github.silviuburceadev.aoc.cage.Loop;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedReader;
@@ -10,9 +11,38 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+import static java.lang.System.lineSeparator;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestLoop {
+
+    @Test
+    public void testNoLoop() {
+        final String[] sample = """
+                ...
+                ...
+                """.split(lineSeparator());
+        Assertions.assertThrows(IllegalStateException.class, () -> Loop.parse(sample));
+    }
+
+    @Test
+    public void testBounds() {
+        final String[] sampleNorthWest = """
+                S-7.
+                |.|.
+                L-J.
+                ....
+                """.split(lineSeparator());
+        assertEquals(8, Loop.parse(sampleNorthWest).size());
+
+        final String[] sampleNorthEast = """
+                .F-S
+                .|.|
+                .L-J
+                ....
+                """.split(lineSeparator());
+        assertEquals(8, Loop.parse(sampleNorthEast).size());
+    }
 
     @Test
     public void testParseSquareLoop() {
@@ -22,7 +52,7 @@ public class TestLoop {
                 .|.|.
                 .L-J.
                 .....
-                """.split(System.lineSeparator());
+                """.split(lineSeparator());
         final Loop loop = Loop.parse(sample);
         assertEquals(8, loop.size());
     }
@@ -35,9 +65,8 @@ public class TestLoop {
                 L|7||
                 -L-J|
                 L|-JF
-                """.split(System.lineSeparator());
+                """.split(lineSeparator());
         final Loop loop = Loop.parse(sample);
-        System.out.println(loop.start());
         assertEquals(8, loop.size());
     }
 
@@ -49,9 +78,8 @@ public class TestLoop {
                 SJ.L7
                 |F--J
                 LJ...
-                """.split(System.lineSeparator());
+                """.split(lineSeparator());
         final Loop loop = Loop.parse(sample);
-        System.out.println(loop.start());
         assertEquals(16, loop.size());
     }
 
@@ -63,9 +91,8 @@ public class TestLoop {
                 SJLL7
                 |F--J
                 LJ.LJ
-                """.split(System.lineSeparator());
+                """.split(lineSeparator());
         final Loop loop = Loop.parse(sample);
-        System.out.println(loop.start());
         assertEquals(16, loop.size());
     }
 
@@ -77,7 +104,7 @@ public class TestLoop {
                  BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
                 final List<String> lines = bufferedReader.lines().toList();
                 final Loop loop = Loop.parse(lines);
-                assertEquals(0, loop.farthest());
+                assertEquals(6738, loop.farthest());
             }
         }
     }
