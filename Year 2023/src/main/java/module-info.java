@@ -3,6 +3,7 @@ module year_2023_main {
     requires java.logging;
 
     // app
+    exports com.github.silviuburceadev.aoc.cage;
     exports com.github.silviuburceadev.aoc.calibration;
     exports com.github.silviuburceadev.aoc.camelcard;
     exports com.github.silviuburceadev.aoc.camelmap;
