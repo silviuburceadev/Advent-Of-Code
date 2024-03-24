@@ -5,6 +5,7 @@ module year_2023_main_test {
     requires year_2023_main;
 
     // app
+    exports com.github.silviuburceadev.aoc.test.cage;
     exports com.github.silviuburceadev.aoc.test.calibration;
     exports com.github.silviuburceadev.aoc.test.camelcard;
     exports com.github.silviuburceadev.aoc.test.camelmap;
